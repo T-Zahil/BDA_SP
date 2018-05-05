@@ -11,11 +11,24 @@
         <img src="~assets/menu-black.png" alt="">
       </div>
     </section>
-    <section class="container">
-      <div class="content">
-
+    <section class="container grid-1">
+      <div class="bg-lines grid-1">
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
       </div>
-      <div class="bg">
+      <div class="content col-8">
+        <div class="post">
+          <h1>We live in interesting times.</h1>
+          <p>
+            The media business is in uncharted waters. Traditional models are broken. But the basics haven’t changed. Organizations need to know who they are, what they stand for, and what they’re here to do. They need to distinguish themselves by making every interaction a meaningful experience.
+          </p>
+          <p>And they need to supply an increasingly distracted audience with stories that are relevant and trustworthy. In a shaky time, these unshakeable truths drive everything we do.</p>
+          </p>
+        </div>
+      </div>
+      <div class="bg col-4">
         <img src="~assets/home1.jpg" alt="">
       </div>
       <!-- <post-list v-if="posts" :posts="posts" title="Recent Posts"></post-list> -->
@@ -68,9 +81,18 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~assets/scss/gridlex.scss';
 @font-face {
   font-family: 'Raleway Bold';
   src: url('~static/Raleway-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Raleway Regular';
+  src: url('~static/Raleway-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'PlayfairDisplay Bold';
+  src: url('~static/PlayfairDisplay-Bold.ttf') format('truetype');
 }
 
 .header {
@@ -110,26 +132,53 @@ export default {
     }
     img {
       height: 1rem;
-      margin: 0 0.5rem;
+      margin-left: 0.5rem;
       cursor: pointer;
     }
   }
 }
 .container {
+  .bg-lines {
+    width: 65%;
+    height: 80vh;
+    position: absolute;
+    left: 4rem;
+    z-index: -1;
+    .col-3 {
+      border-left: 1px solid #eeeeee;
+    }
+  }
   height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
   .content {
     width: 65%;
-    height: 100%;
+    max-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 110px 0px 70px;
+    h1 {
+      font-family: 'PlayfairDisplay-Bold';
+      font-size: 3rem;
+      color: #1f1f1f;
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+    p {
+      font-family: 'Raleway Regular';
+      font-size: 1rem;
+      line-height: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
   }
   .bg {
     width: 35%;
     height: 80vh;
     display: flex;
     overflow: hidden;
-    padding-right: 4.5rem;
+    padding: 0 4.5rem 0 0;
     img {
       width: 100%;
       height: auto;
@@ -138,65 +187,6 @@ export default {
       mask: url('~assets/mask.png');
       mask-size: 100% calc(80vh - 2rem);
     }
-  }
-}
-
-.content {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  text-align: left;
-  margin: 0px auto;
-  line-height: 150%;
-  padding: 0px 30px 30px 30px;
-  max-width: 1000px;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  /* 1 */
-  display: block;
-  font-weight: bold;
-  font-size: 100px;
-  color: #fff;
-  letter-spacing: 1px;
-  font-size: 52px;
-  padding: 50px 5px 0px 5px;
-  text-align: center;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 28px;
-  color: #fff;
-  padding-bottom: 15px;
-  padding-left: 5px;
-  text-align: center;
-}
-
-.links {
-  padding-top: 15px;
-}
-
-/* Smartphones (portrait and landscape) ----------- */
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-  .title {
-    font-size: 26px;
-    line-height: 36px;
-    padding: 40px 10px 0px;
-  }
-  .subtitle {
-    font-size: 22px;
-    line-height: 26px;
-    padding: 5px 10px 15px;
-  }
-  h3 {
-    font-size: 34px;
-    font-weight: 700;
-    line-height: 44px;
   }
 }
 </style>
