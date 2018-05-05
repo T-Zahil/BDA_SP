@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "@nuxtjs/pwa": "latest",
+    "animejs": "^2.2.0",
     "axios": "^0.16.2",
     "bulma": "^0.4.0",
     "gridlex": "^2.7.1",
