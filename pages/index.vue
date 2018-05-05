@@ -12,11 +12,13 @@
       </div>
     </section>
     <section class="container">
-      <div>
-        <div class="content">
-          <post-list v-if="posts" :posts="posts" title="Recent Posts"></post-list>
-        </div>
+      <div class="content">
+
       </div>
+      <div class="bg">
+        <img src="~assets/home1.jpg" alt="">
+      </div>
+      <!-- <post-list v-if="posts" :posts="posts" title="Recent Posts"></post-list> -->
     </section>
   </div>
 </template>
@@ -114,11 +116,29 @@ export default {
   }
 }
 .container {
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  padding-top: 60px;
+  .content {
+    width: 65%;
+    height: 100%;
+  }
+  .bg {
+    width: 35%;
+    height: 80vh;
+    display: flex;
+    overflow: hidden;
+    padding-right: 4.5rem;
+    img {
+      width: 100%;
+      height: auto;
+      max-height: calc(100% - 2rem);
+      margin-top: 2rem;
+      mask: url('~assets/mask.png');
+      mask-size: 100% calc(80vh - 2rem);
+    }
+  }
 }
 
 .content {
