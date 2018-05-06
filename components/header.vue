@@ -1,7 +1,7 @@
 <template>
   <div class='header'>
     <div class="header__logo">
-      <img class="logo" src="~assets/logo.png">
+      <nuxt-link to="/" tag="img" src="~assets/logo.png"></nuxt-link>
     </div>
     <div class="header__menu">
       <button>Adhérer</button>

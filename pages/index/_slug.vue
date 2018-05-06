@@ -8,6 +8,7 @@
 <script>
 import axios from 'axios'
 import config from '../../api/config'
+import anime from 'animejs'
 
 export default {
   name: 'page',
@@ -24,6 +25,18 @@ export default {
         txt.innerHTML = string
         return txt.value
       }
+    },
+    mounted() {
+      var pageSlices = this.$el.querySelectorAll('.page-transition div')
+      anime({
+        targets: pageSlices,
+        translateY: '100%',
+        easing: 'linear',
+        delay: 700,
+        duration: function(el, i, l) {
+          return 200 + i * 200
+        }
+      })
     }
   }
 }
@@ -40,11 +53,17 @@ export default {
     text-align: left;
     margin: 3rem 0;
   }
-  p {
+  p,
+  li,
+  a {
     font-family: 'Raleway Regular';
     font-size: 1rem;
     line-height: 1.5rem;
     margin-bottom: 1rem;
+    .aligncenter {
+      margin: 0 auto;
+      display: block;
+    }
   }
 }
 </style>

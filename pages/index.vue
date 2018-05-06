@@ -6,9 +6,8 @@
       <div class="col-2"></div>
     </div>
     <section class="header">
-      <!-- <categories :categories="categories"></categories> -->
       <div class="header__logo">
-        <img class="logo" src="~assets/logo.png">
+        <nuxt-link to="/" tag="img" :src="this.logo" class="logo"></nuxt-link>
       </div>
       <div class="header__menu">
         <button>Adhérer</button>
@@ -21,12 +20,12 @@
         <div class="col-3"></div>
         <div class="col-3"></div>
         <div class="col-3"></div>
-        <div class="col-3"></div>
+        <div class="col-3 col-3--last"></div>
       </div>
-      <div class="content col-8">
+      <div class="content">
         <nuxt-child/>
       </div>
-      <div class="bg col-4">
+      <div class="bg">
         <img src="~assets/home1.jpg" alt="">
       </div>
       <transition name="fade">
@@ -46,13 +45,16 @@ import categories from '../components/categories.vue'
 import sidemenu from '../components/menu.vue'
 import anime from 'animejs'
 
+const logoUrl = require('~/assets/logo.png')
+
 export default {
   components: { postList, categories, recentPosts, sidemenu },
   async asyncData({ params }) {
     let { data } = await api.getPages()
 
     return {
-      pages: data
+      pages: data,
+      logo: logoUrl
     }
   },
   head() {
@@ -92,7 +94,7 @@ export default {
         translateY: '-100%',
         easing: 'linear',
         duration: function(el, i, l) {
-          return 200 + i * 200
+          return 125 + i * 125
         },
         complete: function() {
           instance.toggleMenu()
@@ -100,9 +102,9 @@ export default {
             targets: menuSlices,
             translateY: '100%',
             easing: 'linear',
-            delay: 500,
+            delay: 200,
             duration: function(el, i, l) {
-              return 600 + i * 600
+              return 450 + i * 450
             }
           })
         }
@@ -145,17 +147,18 @@ export default {
     height: 100%;
     display: flex;
     align-items: center;
-    margin: 0 4.5rem;
+    margin: 0 4rem;
     img {
       width: auto;
       height: 50%;
+      cursor: pointer;
     }
   }
   .header__menu {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 4.5rem;
+    margin: 0 4rem;
     button {
       border: 2px solid #ec7c74;
       background: #ec7c74;
@@ -187,14 +190,19 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0;
   .bg-lines {
-    width: 65%;
+    width: 60%;
     height: 80vh;
     position: absolute;
     left: 4.5rem;
     z-index: -1;
     .col-3 {
+      height: 100%;
       border-left: 1px solid #eeeeee;
+    }
+    .col-3--last {
+      border-right: 1px solid #eeeeee;
     }
   }
   .content {
@@ -203,14 +211,14 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 0 0 4.5rem;
+    padding: 0 0 0 4rem;
   }
   .bg {
     width: 35%;
     height: 80vh;
     display: flex;
     overflow: hidden;
-    padding: 0 4.5rem 0 0;
+    padding: 0 4rem 0 0;
     img {
       width: 100%;
       height: auto;
