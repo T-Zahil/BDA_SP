@@ -24,7 +24,7 @@
         <div class="col-3"></div>
       </div>
       <div class="content col-8">
-        <div class="post">
+        <div class="page">
           <h1>We live in interesting times.</h1>
           <p>
             The media business is in uncharted waters. Traditional models are broken. But the basics haven’t changed. Organizations need to know who they are, what they stand for, and what they’re here to do. They need to distinguish themselves by making every interaction a meaningful experience.
@@ -37,7 +37,7 @@
         <img src="~assets/home1.jpg" alt="">
       </div>
       <transition name="fade">
-        <sidemenu v-if="this.menu"></sidemenu>
+        <sidemenu v-if="this.menu" :pages="pages"></sidemenu>
       </transition>
       <!-- <post-list v-if="posts" :posts="posts" title="Recent Posts"></post-list> -->
     </section>
@@ -56,15 +56,15 @@ import anime from 'animejs'
 export default {
   components: { postList, categories, recentPosts, sidemenu },
   async asyncData({ params }) {
-    let { data } = await api.getPosts()
+    let { data } = await api.getPages()
 
     return {
-      posts: data
+      pages: data
     }
   },
   head() {
     return {
-      title: `Nuxt WordPress | Home`,
+      title: `Bureau des Arts de Sciences Po`,
       meta: [
         {
           name: 'description',
@@ -210,7 +210,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 110px 0px 70px;
+    padding: 0 110px 0px 4.5rem;
     h1 {
       font-family: 'PlayfairDisplay-Bold';
       font-size: 3rem;

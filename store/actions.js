@@ -1,6 +1,9 @@
 import api from "../api/index";
 
-export const getPage = ({ commit, state }, slug) => {
+export const getPage = ({
+  commit,
+  state
+}, slug) => {
   return new Promise((resolve, reject) => {
     api.getPage(slug).then(
       response => {
@@ -14,7 +17,27 @@ export const getPage = ({ commit, state }, slug) => {
   });
 };
 
-export const getPost = ({ commit, state }, slug) => {
+export const getPages = ({
+  commit,
+  state
+}, parent) => {
+  return new Promise((resolve, reject) => {
+    api.getPages(parent).then(
+      response => {
+        commit("PAGES", response);
+        resolve(response);
+      },
+      response => {
+        reject(response);
+      }
+    );
+  });
+};
+
+export const getPost = ({
+  commit,
+  state
+}, slug) => {
   return new Promise((resolve, reject) => {
     api.getPost(slug).then(
       response => {
@@ -28,7 +51,10 @@ export const getPost = ({ commit, state }, slug) => {
   });
 };
 
-export const getPosts = ({ commit, state }) => {
+export const getPosts = ({
+  commit,
+  state
+}) => {
   return new Promise((resolve, reject) => {
     api.getPosts().then(
       response => {
@@ -42,7 +68,10 @@ export const getPosts = ({ commit, state }) => {
   });
 };
 
-export const getCategory = ({ commit, state }, slug) => {
+export const getCategory = ({
+  commit,
+  state
+}, slug) => {
   return new Promise((resolve, reject) => {
     api.getCategory(slug).then(
       response => {
@@ -56,7 +85,10 @@ export const getCategory = ({ commit, state }, slug) => {
   });
 };
 
-export const getCategories = ({ commit, state }, slug) => {
+export const getCategories = ({
+  commit,
+  state
+}, slug) => {
   return new Promise((resolve, reject) => {
     api.getCategories(slug).then(
       response => {

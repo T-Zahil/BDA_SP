@@ -1,3 +1,3 @@
 export default {
-  baseUrl: "https://nuxt.craftedup.com/wp-json/wp/v2/"
+  baseUrl: "https://next.bdarts.org/wp-json/wp/v2/"
 };

@@ -18,6 +18,7 @@ const store = () => {
         title: null,
         content: null
       },
+      pages: null,
       posts: null,
       post: {
         title: null,

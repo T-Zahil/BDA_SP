@@ -1,6 +1,8 @@
 import request from "axios";
 import config from "../api/config";
 
+request.defaults.headers[ 'Content-Type' ] = 'application/json';
+
 export default {
   baseUrl: config.baseUrl,
 
@@ -13,7 +15,7 @@ export default {
     return new Promise((resolve, reject) => {
       request.defaults.baseURL = this.baseUrl;
       request.get(`pages?slug=${slug}`).then(response => {
-        const data = [...response.data][0];
+        const data = [ ...response.data ][ 0 ];
         if (response.status === 200 && response.data.length > 0) {
           const filtered = {
             content: data.content.rendered,
@@ -35,6 +37,36 @@ export default {
     });
   },
   /**
+   * Return all pages
+   * @param  string slug Page slug (e.g. 'sample-page')
+   * @return Promise Filtered response
+   */
+  getPages(parent) {
+    return new Promise((resolve, reject) => {
+      request.defaults.baseURL = this.baseUrl;
+      request.get(`pages?per_page=100&order=asc`).then(response => {
+        const data = [ ...response.data ];
+        if (response.status === 200 && response.data.length > 0) {
+          const filtered = {
+            total: response.headers[ "x-wp-total" ],
+            totalPages: response.headers[ "x-wp-totalpages" ],
+            data: data.map(item => ({
+              id: item.id,
+              title: item.title.rendered,
+              content: item.content.rendered,
+              excerpt: item.excerpt.rendered,
+              parent: item.parent,
+              slug: item.slug
+            }))
+          };
+          resolve(filtered);
+        } else {
+          reject(response);
+        }
+      });
+    });
+  },
+  /**
    * Return a single post
    * @param  string slug Post slug (e.g. 'hello-world')
    * @return Promise Filtered response
@@ -43,7 +75,7 @@ export default {
     return new Promise((resolve, reject) => {
       request.defaults.baseURL = this.baseUrl;
       request.get(`posts?slug=${slug}`).then(response => {
-        const data = [...response.data][0];
+        const data = [ ...response.data ][ 0 ];
         if (response.status === 200 && response.data.length > 0) {
           const filtered = {
             content: data.content.rendered,
@@ -74,11 +106,11 @@ export default {
     return new Promise((resolve, reject) => {
       request.defaults.baseURL = this.baseUrl;
       request.get(`posts`).then(response => {
-        const data = [...response.data];
+        const data = [ ...response.data ];
         if (response.status === 200 && response.data.length > 0) {
           const filtered = {
-            total: response.headers["x-wp-total"],
-            totalPages: response.headers["x-wp-totalpages"],
+            total: response.headers[ "x-wp-total" ],
+            totalPages: response.headers[ "x-wp-totalpages" ],
             data: data.map(item => ({
               id: item.id,
               title: item.title.rendered,
@@ -105,7 +137,7 @@ export default {
       return request
         .get(`categories?slug=${slug}`)
         .then(response => {
-          const data = [...response.data][0];
+          const data = [ ...response.data ][ 0 ];
           if (response.status === 200) {
             return {
               id: data.id,
@@ -118,7 +150,7 @@ export default {
           return request
             .get(`posts?categories=${category.id}`)
             .then(response => {
-              const data = [...response.data];
+              const data = [ ...response.data ];
               if (response.status === 200) {
                 category.posts = data.map(item => ({
                   id: item.id,
@@ -139,7 +171,7 @@ export default {
     return new Promise((resolve, reject) => {
       request.defaults.baseURL = this.baseUrl;
       return request.get(`categories`).then(response => {
-        const data = [...response.data];
+        const data = [ ...response.data ];
         if (response.status === 200 && response.data.length > 0) {
           resolve(data);
         }

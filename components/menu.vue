@@ -12,27 +12,21 @@
       <div class="content__nav">
         <div class="nav__block">
           <h3>À propos</h3>
-          <a href="">Qu'est-ce que le BDA ?</a>
-          <a href="">L'équipe</a>
-          <a href="">Engagez-vous</a>
-          <a href="">Partenaires</a>
+          <a href="" v-for="item in pages" :key="item.id" v-if="item.parent == 65646">
+            <nuxt-link :to="parentToUrl(item.parent)">{{ encode(item.title) }}</nuxt-link>
+          </a>
         </div>
         <div class="nav__block">
           <h3>Nos activités</h3>
-          <a href="">Lorem Ipsum</a>
-          <a href="">L'équipe</a>
-          <a href="">Engagez-vous</a>
-          <a href="">Partenaires</a>
+          <a href="" v-for="item in pages" :key="item.id" v-if="item.parent == 2113">
+            <nuxt-link :to="parentToUrl(item.parent)">{{ encode(item.title) }}</nuxt-link>
+          </a>
         </div>
         <div class="nav__block">
-          <h3>Les cours du BDA</h3>
-        </div>
-        <div class="nav__block">
-          <h3>À propos</h3>
-          <a href="">Qu'est-ce que le BDA ?</a>
-          <a href="">L'équipe</a>
-          <a href="">Engagez-vous</a>
-          <a href="">Partenaires</a>
+          <h3>Autres</h3>
+          <a href="" v-for="item in pages" :key="item.id" v-if="item.parent == 65658">
+            <nuxt-link :to="parentToUrl(item.parent)">{{ encode(item.title) }}</nuxt-link>
+          </a>
         </div>
       </div>
     </div>
@@ -41,7 +35,18 @@
 
 <script>
 export default {
-  name: 'menu'
+  name: 'sidemenu',
+  props: ['pages'],
+  methods: {
+    parentToUrl(parent) {
+      return `/${parent}`
+    },
+    encode(string) {
+      var txt = document.createElement('textarea')
+      txt.innerHTML = string
+      return txt.value
+    }
+  }
 }
 </script>
 
@@ -63,7 +68,7 @@ export default {
   }
   .menu__content {
     width: 100%;
-    max-height: 80vh;
+    height: 80vh;
     overflow: scroll;
     position: relative;
     padding-right: 4.5rem;
@@ -81,6 +86,7 @@ export default {
       }
     }
     .content__nav {
+      height: 100%;
       display: flex;
       flex-direction: column;
       background-image: url('../assets/zigwigwi.png');
