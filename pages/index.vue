@@ -24,14 +24,7 @@
         <div class="col-3"></div>
       </div>
       <div class="content col-8">
-        <div class="page">
-          <h1>We live in interesting times.</h1>
-          <p>
-            The media business is in uncharted waters. Traditional models are broken. But the basics haven’t changed. Organizations need to know who they are, what they stand for, and what they’re here to do. They need to distinguish themselves by making every interaction a meaningful experience.
-          </p>
-          <p>And they need to supply an increasingly distracted audience with stories that are relevant and trustworthy. In a shaky time, these unshakeable truths drive everything we do.</p>
-          </p>
-        </div>
+        <nuxt-child/>
       </div>
       <div class="bg col-4">
         <img src="~assets/home1.jpg" alt="">
@@ -210,20 +203,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 110px 0px 4.5rem;
-    h1 {
-      font-family: 'PlayfairDisplay-Bold';
-      font-size: 3rem;
-      color: #1f1f1f;
-      text-align: left;
-      margin-bottom: 2rem;
-    }
-    p {
-      font-family: 'Raleway Regular';
-      font-size: 1rem;
-      line-height: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
+    padding: 0 0 0 4.5rem;
   }
   .bg {
     width: 35%;

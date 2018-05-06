@@ -13,19 +13,19 @@
         <div class="nav__block">
           <h3>À propos</h3>
           <a href="" v-for="item in pages" :key="item.id" v-if="item.parent == 65646">
-            <nuxt-link :to="parentToUrl(item.parent)">{{ encode(item.title) }}</nuxt-link>
+            <nuxt-link :to="slugToUrl(item.slug)">{{ encode(item.title) }}</nuxt-link>
           </a>
         </div>
         <div class="nav__block">
           <h3>Nos activités</h3>
           <a href="" v-for="item in pages" :key="item.id" v-if="item.parent == 2113">
-            <nuxt-link :to="parentToUrl(item.parent)">{{ encode(item.title) }}</nuxt-link>
+            <nuxt-link :to="slugToUrl(item.slug)">{{ encode(item.title) }}</nuxt-link>
           </a>
         </div>
         <div class="nav__block">
           <h3>Autres</h3>
           <a href="" v-for="item in pages" :key="item.id" v-if="item.parent == 65658">
-            <nuxt-link :to="parentToUrl(item.parent)">{{ encode(item.title) }}</nuxt-link>
+            <nuxt-link :to="slugToUrl(item.slug)">{{ encode(item.title) }}</nuxt-link>
           </a>
         </div>
       </div>
@@ -38,8 +38,8 @@ export default {
   name: 'sidemenu',
   props: ['pages'],
   methods: {
-    parentToUrl(parent) {
-      return `/${parent}`
+    slugToUrl(slug) {
+      return `/${slug}`
     },
     encode(string) {
       var txt = document.createElement('textarea')

@@ -41,7 +41,7 @@ export default {
    * @param  string slug Page slug (e.g. 'sample-page')
    * @return Promise Filtered response
    */
-  getPages(parent) {
+  getPages(slug) {
     return new Promise((resolve, reject) => {
       request.defaults.baseURL = this.baseUrl;
       request.get(`pages?per_page=100&order=asc`).then(response => {
