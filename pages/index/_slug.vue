@@ -8,11 +8,13 @@
 <script>
 import axios from 'axios'
 import config from '../../api/config'
-import anime from 'animejs'
 
 export default {
   name: 'page',
+  key: to => to.fullPath,
+  transition: 'slidepage',
   async asyncData({ params }) {
+    params.slug = params.slug.replace('-', '_')
     let { data } = await axios.get(config.baseUrl + `pages?slug=${params.slug}`)
     return {
       page: data[0]
@@ -25,23 +27,19 @@ export default {
         txt.innerHTML = string
         return txt.value
       }
-    },
-    mounted() {
-      var pageSlices = this.$el.querySelectorAll('.page-transition div')
-      anime({
-        targets: pageSlices,
-        translateY: '100%',
-        easing: 'linear',
-        delay: 700,
-        duration: function(el, i, l) {
-          return 200 + i * 200
-        }
-      })
     }
   }
 }
 </script>
 <style lang="scss">
+.component-fade-enter-active,
+.component-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.component-fade-enter,
+.component-fade-leave-to {
+  opacity: 0;
+}
 .page {
   max-height: 80vh;
   overflow-y: scroll;

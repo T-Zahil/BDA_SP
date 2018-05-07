@@ -6,6 +6,8 @@ import mutations from "./mutations";
 const store = () => {
   return new Vuex.Store({
     state: {
+      menu: false,
+      anglais: false,
       page: {
         author: null,
         date: null,

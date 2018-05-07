@@ -10,9 +10,12 @@
         <nuxt-link to="/" tag="img" :src="this.logo" class="logo"></nuxt-link>
       </div>
       <div class="header__menu">
-        <button>Adhérer</button>
-        <img v-if="!this.menu" src="~assets/menu-black.png" alt="" @click="animMenu()">
-        <img v-else src="~assets/close.png" alt="" @click="animMenu()" class="menu__above">
+        <nuxt-link :to="slugToUrl('adherer')" tag="button" v-on:click.native="closeMenu()" v-if="this.anglais">Join</nuxt-link>
+        <nuxt-link :to="slugToUrl('adherer')" tag="button" v-on:click.native="closeMenu()" v-else>Adhérer</nuxt-link>
+        <div v-if="!this.anglais" href="" @click="setEn()">English</div>
+        <div v-else href="" @click="setFr()">Français</div>
+        <img v-if="!this.menu" src="~assets/menu-black.png" alt="" @click="toggleMenu()">
+        <img v-else src="~assets/close.png" alt="" @click="toggleMenu()" class="menu__above">
       </div>
     </section>
     <section class="container grid-1">
@@ -23,35 +26,30 @@
         <div class="col-3 col-3--last"></div>
       </div>
       <div class="content">
-        <nuxt-child/>
+        <div>
+          <nuxt-child :key="$route.fullPath" />
+        </div>
       </div>
       <div class="bg">
         <img src="~assets/home1.jpg" alt="">
       </div>
-      <transition name="fade">
+      <transition name="slide">
         <sidemenu v-if="this.menu" :pages="pages"></sidemenu>
       </transition>
-      <!-- <post-list v-if="posts" :posts="posts" title="Recent Posts"></post-list> -->
     </section>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import api from '../api/index'
-import postList from '../components/postList.vue'
-import recentPosts from '../components/recentPosts.vue'
-import categories from '../components/categories.vue'
 import sidemenu from '../components/menu.vue'
-import anime from 'animejs'
 
 const logoUrl = require('~/assets/logo.png')
 
 export default {
-  components: { postList, categories, recentPosts, sidemenu },
+  components: { sidemenu },
   async asyncData({ params }) {
     let { data } = await api.getPages()
-
     return {
       pages: data,
       logo: logoUrl
@@ -70,51 +68,54 @@ export default {
   },
   data() {
     return {
-      title: 'default',
-      menu: false
-    }
-  },
-  mounted() {
-    if (this.categories.length === 0) {
-      this.$store.dispatch('getCategories')
+      title: 'default'
     }
   },
   computed: {
-    ...mapGetters(['categories'])
+    menu: function() {
+      return this.$store.state.menu
+    },
+    anglais: function() {
+      return this.$store.state.anglais
+    }
   },
   methods: {
-    toggleMenu: function() {
-      this.menu = !this.menu
+    slugToUrl(slug) {
+      if (this.$store.state.anglais) {
+        return `/${slug}-en`
+      } else {
+        return `/${slug}`
+      }
     },
-    animMenu: function() {
-      var menuSlices = this.$el.querySelectorAll('.menu-transition div')
-      var instance = this
-      anime({
-        targets: menuSlices,
-        translateY: '-100%',
-        easing: 'linear',
-        duration: function(el, i, l) {
-          return 125 + i * 125
-        },
-        complete: function() {
-          instance.toggleMenu()
-          anime({
-            targets: menuSlices,
-            translateY: '100%',
-            easing: 'linear',
-            delay: 200,
-            duration: function(el, i, l) {
-              return 450 + i * 450
-            }
-          })
-        }
-      })
+    toggleMenu: function() {
+      this.$store.commit('MENU')
+    },
+    closeMenu: function() {
+      this.$store.commit('MENUCLOSE')
+    },
+    setEn: function() {
+      this.$store.commit('ANGLAIS')
+      this.$router.push({ path: '/' })
+    },
+    setFr: function() {
+      this.$store.commit('FRANCAIS')
+      this.$router.push({ path: '/' })
     }
   }
 }
 </script>
 
 <style lang="scss">
+.slide-left-enter,
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate(30px, 0);
+}
+.slide-left-leave-active,
+.slide-right-enter {
+  opacity: 0;
+  transform: translate(-30px, 0);
+}
 @import '~assets/scss/gridlex.scss';
 @font-face {
   font-family: 'Raleway Bold';
@@ -177,6 +178,10 @@ export default {
       height: auto;
       width: 1.5rem;
       margin-left: 1rem;
+      cursor: pointer;
+    }
+    div {
+      margin: 0 1rem;
       cursor: pointer;
     }
     .menu__above {
@@ -242,12 +247,21 @@ export default {
     z-index: 10;
   }
 }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.5s ease;
 }
-.fade-enter,
-.fade-leave-to {
+.slide-enter,
+.slide-leave-to {
+  transform: translateX(100%);
+}
+.slidepage-enter-active,
+.slidepage-leave-active {
+  transition: all 0.5s ease;
+}
+.slidepage-enter,
+.slidepage-leave-to {
+  transform: translateY(20%);
   opacity: 0;
 }
 </style>

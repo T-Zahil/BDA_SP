@@ -16,22 +16,25 @@
       </div>
       <div class="content__nav">
         <div class="nav__block">
-          <h3>À propos</h3>
-          <div v-for="item in pages" :key="item.id" v-if="item.parent == 65646" @click="changePage(item.slug)">
+          <h3 v-if="anglais">About</h3>
+          <h3 v-else>À propos</h3>
+          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="item.parent == 65646" v-on:click.native="toggleMenu()">
             {{ encode(item.title) }}
-          </div>
+          </nuxt-link>
         </div>
         <div class="nav__block">
-          <h3>Nos activités</h3>
-          <a href="" v-for="item in pages" :key="item.id" v-if="item.parent == 2113">
-            <nuxt-link :to="slugToUrl(item.slug)">{{ encode(item.title) }}</nuxt-link>
-          </a>
+          <h3 v-if="anglais">Our activities</h3>
+          <h3 v-else>Nos activités</h3>
+          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="item.parent == 2113" v-on:click.native="toggleMenu()">
+            {{ encode(item.title) }}
+          </nuxt-link>
         </div>
         <div class="nav__block">
-          <h3>Autres</h3>
-          <a href="" v-for="item in pages" :key="item.id" v-if="item.parent == 65658">
-            <nuxt-link :to="slugToUrl(item.slug)">{{ encode(item.title) }}</nuxt-link>
-          </a>
+          <h3 v-if="anglais">Others</h3>
+          <h3 v-else>Autres</h3>
+          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="item.parent == 65658" v-on:click.native="toggleMenu()">
+            {{ encode(item.title) }}
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -39,42 +42,33 @@
 </template>
 
 <script>
-import anime from 'animejs'
-
 export default {
   name: 'sidemenu',
   props: ['pages'],
+  computed: {
+    menu: function() {
+      return this.$store.state.menu
+    },
+    anglais: function() {
+      return this.$store.state.anglais
+    }
+  },
   methods: {
     slugToUrl(slug) {
-      return `/${slug}`
+      if (this.$store.state.anglais) {
+        return `/${slug} + '-en'`
+      } else {
+        return `/${slug}`
+      }
+    },
+    toggleMenu: function() {
+      console.log('COUCOU')
+      this.$store.commit('MENU')
     },
     encode(string) {
       var txt = document.createElement('textarea')
       txt.innerHTML = string
       return txt.value
-    },
-    changePage(slug) {
-      this.$router.push({ path: `/${slug}` })
-      var pageSlices = this.$el.querySelectorAll('.page-transition div')
-      anime({
-        targets: pageSlices,
-        translateY: '-100%',
-        easing: 'linear',
-        duration: function(el, i, l) {
-          return 50 + i * 50
-        },
-        complete: function() {
-          anime({
-            targets: pageSlices,
-            translateY: '100%',
-            easing: 'linear',
-            delay: 700,
-            duration: function(el, i, l) {
-              return 200 + i * 200
-            }
-          })
-        }
-      })
     }
   }
 }

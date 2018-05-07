@@ -2,6 +2,18 @@ export default {
   PAGE: (state, page) => {
     state.page = page;
   },
+  MENU: (state) => {
+    state.menu = !state.menu;
+  },
+  ANGLAIS: (state) => {
+    state.anglais = true;
+  },
+  FRANCAIS: (state) => {
+    state.anglais = false;
+  },
+  MENUCLOSE: (state) => {
+    state.menu = false;
+  },
   PAGES: (state, pages) => {
     state.pages = pages;
   },
