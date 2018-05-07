@@ -30,6 +30,10 @@ export default {
   max-height: 80vh;
   overflow-y: scroll;
   padding-right: 4.5rem;
+  @media (max-width: 64em) {
+    margin-top: 5rem;
+    padding: 0 1rem;
+  }
   h1 {
     font-family: 'PlayfairDisplay-Bold';
     font-size: 3rem;

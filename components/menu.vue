@@ -64,11 +64,7 @@ export default {
   },
   methods: {
     slugToUrl(slug) {
-      if (this.$store.state.anglais) {
-        return `/${slug}-en`
-      } else {
-        return `/${slug}`
-      }
+      return `/${slug}`
     },
     toggleMenu: function() {
       this.$store.commit('MENU')
@@ -93,6 +89,10 @@ export default {
   top: 0;
   background-color: #1f1f1f;
   transition: all 0.2s ease;
+  @media (max-width: 64em) {
+    width: 100%;
+    z-index: 1;
+  }
   .page-transition {
     width: calc(60% + 4rem);
     height: 100%;
@@ -118,12 +118,21 @@ export default {
     height: 20vh;
     background-color: #212222;
   }
+  @media (max-width: 64em) {
+    .menu__header {
+      display: none;
+    }
+  }
   .menu__content {
     width: 100%;
     height: 80vh;
     overflow: scroll;
     position: relative;
     padding-right: 4.5rem;
+    @media (max-width: 64em) {
+      padding-right: 1rem;
+      height: 100vh;
+    }
     .content__bg-lines {
       width: 100%;
       height: 100%;
@@ -145,17 +154,29 @@ export default {
       background-position-x: 90%;
       background-size: auto 100%;
       background-repeat: no-repeat;
+      @media (max-width: 64em) {
+        // margin-top: 3rem;
+      }
       .nav__block {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
         padding-right: 3px;
         margin: 0.75rem 0;
+        @media (max-width: 64em) {
+          align-items: center;
+          &:first-child {
+            margin-top: 3rem;
+          }
+        }
         h3 {
           font-family: 'Raleway Bold';
           font-size: 1.1rem;
           color: #ffffff;
           margin: 1.15rem 0;
+          @media (max-width: 64em) {
+            font-size: 1.5rem;
+          }
         }
         a,
         div {
@@ -174,6 +195,9 @@ export default {
             font-size: 1.3rem;
             color: #ec7c74;
             text-shadow: -1.5rem 0px 1px #2f2f2f;
+          }
+          @media (max-width: 64em) {
+            font-size: 1.1rem;
           }
         }
       }

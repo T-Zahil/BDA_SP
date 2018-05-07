@@ -15,7 +15,6 @@ export default {
   transition: 'slidepage',
   async asyncData({ params }) {
     let { data } = await axios.get(config.baseUrl + `pages?slug=${params.slug}`)
-    console.log(params.slug)
     return { page: data[0] }
   },
   methods: {
@@ -43,6 +42,10 @@ export default {
   max-height: 80vh;
   overflow-y: scroll;
   padding-right: 4.5rem;
+  @media (max-width: 64em) {
+    margin-top: 5rem;
+    padding: 0 1rem;
+  }
   h1 {
     font-family: 'PlayfairDisplay-Bold';
     font-size: 3rem;

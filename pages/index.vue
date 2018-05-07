@@ -23,14 +23,14 @@
         <div class="col-3"></div>
         <div class="col-3"></div>
         <div class="col-3"></div>
-        <div class="col-3 col-3--last"></div>
+        <div class="col-3"></div>
       </div>
-      <div class="content">
+      <div class="content col-8_md-10_sm-12">
         <div>
           <nuxt-child :key="$route.fullPath" />
         </div>
       </div>
-      <div class="bg">
+      <div class="bg col-4 md-hidden">
         <img src="~assets/home1.jpg" alt="">
       </div>
       <transition name="slide">
@@ -161,6 +161,11 @@ export default {
       cursor: pointer;
     }
   }
+  @media (max-width: 64em) {
+    .header__logo {
+      margin: 0 1rem;
+    }
+  }
   .header__menu {
     display: flex;
     justify-content: center;
@@ -178,20 +183,43 @@ export default {
       text-align: center;
       margin: 0 0.5rem;
       cursor: pointer;
+      transition: all 0.2s ease;
       z-index: 1;
+      &:hover {
+        background: #fff;
+        color: #ec7c74;
+      }
+    }
+    @media (max-width: 64em) {
+      button {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        top: 20%;
+        border-radius: 0;
+        margin: 0;
+        height: 3rem;
+      }
     }
     img {
       height: auto;
       width: 1.5rem;
       margin-left: 1rem;
       cursor: pointer;
+      z-index: 2;
     }
     div {
       margin: 0 1rem;
       cursor: pointer;
+      font-family: 'Raleway Bold';
     }
     .menu__above {
-      z-index: 1;
+      z-index: 2;
+    }
+  }
+  @media (max-width: 64em) {
+    .header__menu {
+      margin: 0 1rem;
     }
   }
 }
@@ -216,6 +244,11 @@ export default {
       border-right: 1px solid #eeeeee;
     }
   }
+  @media (max-width: 64em) {
+    .bg-lines {
+      display: none;
+    }
+  }
   .content {
     width: 65%;
     max-height: 80vh;
@@ -223,14 +256,17 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 0 0 0 4rem;
+    @media (max-width: 64em) {
+      padding: 0;
+    }
     div {
       width: 100%;
     }
   }
-  .bg {
+  .col-4 {
     width: 35%;
     height: 80vh;
-    display: flex;
+    // display: flex;
     overflow: hidden;
     padding: 0 4rem 0 0;
     img {
