@@ -96,10 +96,16 @@ export default {
     setEn: function() {
       this.$store.commit('ANGLAIS')
       this.$router.push({ path: '/' })
+      // if (process.browser) {
+      //   this.$router.push({ path: this.$route.path + '-en' })
+      // }
     },
     setFr: function() {
       this.$store.commit('FRANCAIS')
       this.$router.push({ path: '/' })
+      // if (process.browser) {
+      //   this.$router.push({ path: this.$route.path.replace('-en', '') })
+      // }
     }
   }
 }
@@ -217,6 +223,9 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 0 0 0 4rem;
+    div {
+      width: 100%;
+    }
   }
   .bg {
     width: 35%;

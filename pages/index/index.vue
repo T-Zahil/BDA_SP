@@ -26,6 +26,7 @@ export default {
 </script>
 <style lang="scss">
 .page {
+  width: 100%;
   max-height: 80vh;
   overflow-y: scroll;
   padding-right: 4.5rem;

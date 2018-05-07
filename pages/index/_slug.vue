@@ -1,7 +1,7 @@
 <template>
   <div class='page'>
-    <h1>{{ encode(page.title.rendered) }}</h1>
-    <div v-html="page.content.rendered"></div>
+    <h1 v-if="page">{{ encode(page.title.rendered) }}</h1>
+    <div v-if="page" v-html="page.content.rendered"></div>
   </div>
 </template>
 
@@ -14,11 +14,9 @@ export default {
   key: to => to.fullPath,
   transition: 'slidepage',
   async asyncData({ params }) {
-    params.slug = params.slug.replace('-', '_')
     let { data } = await axios.get(config.baseUrl + `pages?slug=${params.slug}`)
-    return {
-      page: data[0]
-    }
+    console.log(params.slug)
+    return { page: data[0] }
   },
   methods: {
     encode(string) {
@@ -41,6 +39,7 @@ export default {
   opacity: 0;
 }
 .page {
+  width: 100%;
   max-height: 80vh;
   overflow-y: scroll;
   padding-right: 4.5rem;

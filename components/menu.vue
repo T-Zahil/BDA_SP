@@ -18,21 +18,30 @@
         <div class="nav__block">
           <h3 v-if="anglais">About</h3>
           <h3 v-else>À propos</h3>
-          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="item.parent == 65646" v-on:click.native="toggleMenu()">
+          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="anglais && item.parent == 65646 && item.slug.includes('-en')" v-on:click.native="toggleMenu()">
+            {{ encode(item.title) }}
+          </nuxt-link>
+          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="!anglais && item.parent == 65646 && !item.slug.includes('-en')" v-on:click.native="toggleMenu()">
             {{ encode(item.title) }}
           </nuxt-link>
         </div>
         <div class="nav__block">
           <h3 v-if="anglais">Our activities</h3>
           <h3 v-else>Nos activités</h3>
-          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="item.parent == 2113" v-on:click.native="toggleMenu()">
+          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="anglais && item.parent == 2113 && item.slug.includes('-en')" v-on:click.native="toggleMenu()">
+            {{ encode(item.title) }}
+          </nuxt-link>
+          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="!anglais && item.parent == 2113 && !item.slug.includes('-en')" v-on:click.native="toggleMenu()">
             {{ encode(item.title) }}
           </nuxt-link>
         </div>
         <div class="nav__block">
           <h3 v-if="anglais">Others</h3>
           <h3 v-else>Autres</h3>
-          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="item.parent == 65658" v-on:click.native="toggleMenu()">
+          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="anglais && item.parent == 65658 && item.slug.includes('-en')" v-on:click.native="toggleMenu()">
+            {{ encode(item.title) }}
+          </nuxt-link>
+          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="!anglais && item.parent == 65658 && !item.slug.includes('-en')" v-on:click.native="toggleMenu()">
             {{ encode(item.title) }}
           </nuxt-link>
         </div>
@@ -56,13 +65,12 @@ export default {
   methods: {
     slugToUrl(slug) {
       if (this.$store.state.anglais) {
-        return `/${slug} + '-en'`
+        return `/${slug}-en`
       } else {
         return `/${slug}`
       }
     },
     toggleMenu: function() {
-      console.log('COUCOU')
       this.$store.commit('MENU')
     },
     encode(string) {
