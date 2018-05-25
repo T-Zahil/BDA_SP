@@ -36,6 +36,16 @@
           </nuxt-link>
         </div>
         <div class="nav__block">
+          <h3 v-if="anglais">Events</h3>
+          <h3 v-else>Évènements</h3>
+          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="anglais && item.parent == 29 && item.slug.includes('-en')" v-on:click.native="toggleMenu()">
+            {{ encode(item.title) }}
+          </nuxt-link>
+          <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="!anglais && item.parent == 29 && !item.slug.includes('-en')" v-on:click.native="toggleMenu()">
+            {{ encode(item.title) }}
+          </nuxt-link>
+        </div>
+        <div class="nav__block">
           <h3 v-if="anglais">Others</h3>
           <h3 v-else>Autres</h3>
           <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="anglais && item.parent == 65658 && item.slug.includes('-en')" v-on:click.native="toggleMenu()">
@@ -44,6 +54,8 @@
           <nuxt-link :to="slugToUrl(item.slug)" v-for="item in pages" :key="item.slug" v-if="!anglais && item.parent == 65658 && !item.slug.includes('-en')" v-on:click.native="toggleMenu()">
             {{ encode(item.title) }}
           </nuxt-link>
+          <a target="_blank" href="https://artichaut-magazine.fr/" v-if="!anglais">L'Artichaut : le webzine du BDA</a>
+          <a target="_blank" href="https://artichaut-magazine.fr/" v-else>Artichaut : the BDA webzine</a>
         </div>
       </div>
     </div>
@@ -54,14 +66,6 @@
 export default {
   name: 'sidemenu',
   props: ['pages'],
-  computed: {
-    menu: function() {
-      return this.$store.state.menu
-    },
-    anglais: function() {
-      return this.$store.state.anglais
-    }
-  },
   methods: {
     slugToUrl(slug) {
       return `/${slug}`
@@ -73,6 +77,11 @@ export default {
       var txt = document.createElement('textarea')
       txt.innerHTML = string
       return txt.value
+    }
+  },
+  computed: {
+    anglais: function() {
+      return this.$store.state.anglais
     }
   }
 }
@@ -147,16 +156,13 @@ export default {
       }
     }
     .content__nav {
-      height: 100%;
+      height: auto;
       display: flex;
       flex-direction: column;
       background-image: url('../assets/zigwigwi.png');
       background-position-x: 90%;
       background-size: auto 100%;
       background-repeat: no-repeat;
-      @media (max-width: 64em) {
-        // margin-top: 3rem;
-      }
       .nav__block {
         display: flex;
         flex-direction: column;

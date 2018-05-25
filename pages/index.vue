@@ -14,8 +14,12 @@
         <nuxt-link :to="slugToUrl('adherer')" tag="button" v-on:click.native="closeMenu()" v-else>Adhérer</nuxt-link>
         <div v-if="!this.anglais" href="" @click="setEn()">English</div>
         <div v-else href="" @click="setFr()">Français</div>
-        <img v-if="!this.menu" src="~assets/menu-black.png" alt="" @click="toggleMenu()">
-        <img v-else src="~assets/close.png" alt="" @click="toggleMenu()" class="menu__above">
+        <div v-if="!this.menu">
+          <img src="~assets/menu-black.png" alt="" @click="toggleMenu()">
+        </div>
+        <div v-else>
+          <img src="~assets/close.png" alt="" @click="toggleMenu()" class="menu__above">
+        </div>
       </div>
     </section>
     <section class="container grid-1">
@@ -96,16 +100,10 @@ export default {
     setEn: function() {
       this.$store.commit('ANGLAIS')
       this.$router.push({ path: '/' })
-      // if (process.browser) {
-      //   this.$router.push({ path: this.$route.path + '-en' })
-      // }
     },
     setFr: function() {
       this.$store.commit('FRANCAIS')
       this.$router.push({ path: '/' })
-      // if (process.browser) {
-      //   this.$router.push({ path: this.$route.path.replace('-en', '') })
-      // }
     }
   }
 }
@@ -202,9 +200,8 @@ export default {
       }
     }
     img {
-      height: auto;
-      width: 1.5rem;
-      margin-left: 1rem;
+      height: 1.3rem;
+      width: auto;
       cursor: pointer;
       z-index: 2;
     }
@@ -212,9 +209,14 @@ export default {
       margin: 0 1rem;
       cursor: pointer;
       font-family: 'Raleway Bold';
+      &:last-child {
+        display: flex;
+        flex-direction: column;
+        z-index: 10;
+      }
     }
     .menu__above {
-      z-index: 2;
+      z-index: 10;
     }
   }
   @media (max-width: 64em) {
